@@ -63,6 +63,7 @@ class PurchaseRequest extends AbstractRequest
         $data['currency'] = $this->getCurrency();
         $data['orderid'] = $this->getTransactionReference();
         $nextData = [];
+        // It would have made sense to user array_change_key_case, but since we also filter some fields, this makes more sense.
         foreach ($data as $k => $v) {
             switch ($k) {
                 case 'transactionReference':
