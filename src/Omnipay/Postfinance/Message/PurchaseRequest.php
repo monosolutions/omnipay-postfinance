@@ -54,6 +54,26 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('language');
     }
 
+    public function setAcceptUrl($acceptUrl)
+    {
+        return $this->setParameter('acceptUrl', $acceptUrl);
+    }
+
+    public function setExceptionUrl($acceptUrl)
+    {
+        return $this->setParameter('exceptionUrl', $acceptUrl);
+    }
+
+    public function setCancelUrl($acceptUrl)
+    {
+        return $this->setParameter('cancelUrl', $acceptUrl);
+    }
+
+    public function setDeclineUrl($acceptUrl)
+    {
+        return $this->setParameter('declineUrl', $acceptUrl);
+    }
+
     public function getData()
     {
         $this->validate('pspid', 'amount', 'transactionReference', 'currency');
