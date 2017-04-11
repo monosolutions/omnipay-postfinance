@@ -39,6 +39,7 @@ class PurchaseRequestTest extends TestCase
         ];
 
         foreach ($fields as $key => $value) {
+            $key = strtoupper($key);
             $this->assertEquals($value, $data[$key], 'Key: ' . $key . ' not found in the data');
         }
         $expectedHash = hash(

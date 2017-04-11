@@ -96,11 +96,11 @@ class PurchaseRequest extends AbstractRequest
             $nextData[strtoupper($k)] = $v;
         }
         if ($this->getShaInSecret()) {
-            $data['SHASIGN'] = $this->generateHash($nextData);
+            $nextData['SHASIGN'] = $this->generateHash($nextData);
         }
 
 
-        return $data;
+        return $nextData;
     }
 
     protected function get($key)
