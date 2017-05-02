@@ -102,6 +102,7 @@ class PurchaseRequest extends AbstractRequest
                 case 'sha_out_secret':
                 case 'sha_in_secret':
                 case 'hash_function':
+                case 'testMode':
                     continue 2;
             }
             $nextData[strtoupper($k)] = $v;
