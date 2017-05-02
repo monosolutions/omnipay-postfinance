@@ -30,6 +30,7 @@ class Gateway extends AbstractGateway
             'sha_in_secret' => '',
             'sha_out_secret' => '',
             'testMode' => true,
+            'hash_function' => 'sha1',
         );
     }
 
@@ -63,7 +64,15 @@ class Gateway extends AbstractGateway
         return $this->setParameter('sha_out_secret', $shaOutSecret);
     }
 
+    public function getHashFunction()
+    {
+        return $this->parameters->get('hash_function');
+    }
 
+    public function setHashFunction($hashFunction)
+    {
+        return $this->setParameter('hash_function', $hashFunction);
+    }
 
     // This is the same in both instances since epay recommendes using the payment window.
     public function authorize(array $parameters = array())

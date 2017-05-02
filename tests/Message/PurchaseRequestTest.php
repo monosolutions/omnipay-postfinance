@@ -42,11 +42,20 @@ class PurchaseRequestTest extends TestCase
             $key = strtoupper($key);
             $this->assertEquals($value, $data[$key], 'Key: ' . $key . ' not found in the data');
         }
-        $expectedHash = hash(
-            'sha256',
-            'AMOUNT=1500Mysecretsig1875!?CURRENCY=EURMysecretsig1875!?LANGUAGE=en_USMysecretsig1875!?ORDERID=1234Mysecretsig1875!?PSPID=MyPSPIDMysecretsig1875!?'
-        );
-        $this->assertEquals($expectedHash, $data['SHASIGN']);
+        $hashes = ['sha1','sha256','sha512', 'test'];
+        foreach($hashes as $hash) {
+            $this->request->setHashFunction($hash);
+            $data = $this->request->getData();
+            if ($hash === 'test') {
+                $hash = 'sha1';
+            }
+            $expectedHash = hash(
+                $hash,
+                'AMOUNT=1500Mysecretsig1875!?CURRENCY=EURMysecretsig1875!?LANGUAGE=en_USMysecretsig1875!?ORDERID=1234Mysecretsig1875!?PSPID=MyPSPIDMysecretsig1875!?'
+            );
+            $this->assertEquals($expectedHash, $data['SHASIGN'], 'Hash failed: ' . $hash);
+        }
+        
     }
 
 }

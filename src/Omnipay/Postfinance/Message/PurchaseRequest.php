@@ -24,6 +24,16 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('pspid', $pspId);
     }
 
+    public function getHashFunction()
+    {
+        return $this->parameters->get('hash_function');
+    }
+
+    public function setHashFunction($hashFunction)
+    {
+        return $this->setParameter('hash_function', $hashFunction);
+    }
+
     public function getShaInSecret()
     {
         return $this->getParameter('sha_in_secret');
@@ -91,6 +101,7 @@ class PurchaseRequest extends AbstractRequest
                     break;
                 case 'sha_out_secret':
                 case 'sha_in_secret':
+                case 'hash_function':
                     continue 2;
             }
             $nextData[strtoupper($k)] = $v;
@@ -135,7 +146,10 @@ class PurchaseRequest extends AbstractRequest
         foreach ($data as $k => $v) {
             $hashData[] = "{$k}={$v}{$secret}";
         }
-
-        return hash('sha256', implode($hashData));
+        $hashFunction = 'sha1';
+        if (in_array(strtolower($this->getHashFunction()), ['sha1','sha256','sha512'])) {
+            $hashFunction = $this->getHashFunction();
+        }
+        return hash($hashFunction, implode($hashData));
     }
 }
