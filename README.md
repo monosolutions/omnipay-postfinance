@@ -16,7 +16,7 @@ Add this repository to `composer.json`
         }
      ],
      "required": {
-        "monoo/omnipay-postfinance": "dev-master"
+        "mono/omnipay-postfinance": "dev-master"
      }
 }
 ```
